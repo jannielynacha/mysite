@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from .settings_local import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# with open('secret_key.txt') as f:
+#     SECRET_KEY = f.read().strip()
 SECRET_KEY = 'django-insecure-sscuf)fl^gh85378ftwsyb1wbw8n@f0$n!zvjtc6i)cc9c%z68'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -101,6 +104,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Rest
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
+FIXTURE_DIRS = [
+    'fixtures',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
