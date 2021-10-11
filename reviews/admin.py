@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Review, Critic, Link, Multimedia
+
+admin.site.register(Review)
+admin.site.register(Critic)
+admin.site.register(Link)
+admin.site.register(Multimedia)
