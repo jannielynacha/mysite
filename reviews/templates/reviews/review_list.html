@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -48,23 +48,21 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
     <div class="w3-col m3">
       <!-- Profile -->
       <div class="w3-card w3-round w3-white">
-        {% if user.is_authenticated %}
         <div class="w3-container">
          <h4 class="w3-center">My Profile</h4>
          <p class="w3-center"><img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
          <hr>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Bookmarked Reviews</a></p>
-            <ul>
-              {% if review_list_bookmarked %}
-              {% for review in review_list_bookmarked %}
-                <li>{{ review.headline }}</li>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i><a href="{% url 'bookmarks' %}">Bookmarked Reviews</a></p>
+         <ul>
+          {% if bookmarked_review %}
+          {% for review in bookmarked_review %}
+            <li>{{ review.headline }}</li>
               {% endfor %}
               {% else %}
-                <p>No bookedmarked reviews yet</p>
+              <p>No bookmarked reviews yet</p>
               {% endif %}
             </ul>
         </div>
-        {% endif %}
       </div>
       <br>
       <br>
@@ -105,30 +103,26 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
           <center><img src="{{ review.multimedia.src }}" style="width:100%" alt="Lamb" class="w3-margin-bottom"></center>
         </div>
         {% if user.is_authenticated %}
-          {% if isBookmarked %}
-          <a href="{% url 'addbookmark' %}?id={{review.id}}"  type="button" class="w3-button w3-theme-d1" style="margin-bottom: 15px"><i class="far fa-bookmark"></i>  Bookmark</a>
-          {% else %}
-          <a href="{% url 'addbookmark' %}?id={{review.id}}"  type="button" class="w3-button w3-theme-d1" style="margin-bottom: 15px"><i class="fas fa-bookmark"></i>  Bookmark</a>
-          {% endif %}
+        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-bookmark"></i>  Bookmark</button>
         {% endif %}
       </div>
       {% endfor %}
       {% else %}
-    <p>No reviews are available.</p>
+      <p>No reviews are available.</p>
       {% endif %}
 
       <div class="pagination">
       <span class="step-links">
-          {% if page_obj.has_previous %}
+          <!-- {% if page_obj.has_previous %}
               <a href="?page=1">&laquo; first</a>
               <a href="?page={{ page_obj.previous_page_number }}">previous</a>
           {% endif %}
 
-          <!-- <span class="current">
+          <span class="current">
               Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-          </span> -->
+          </span>
 
-          <!-- {% if page_obj.has_next %}
+          {% if page_obj.has_next %}
               <a href="?page={{ page_obj.next_page_number }}">next</a>
               <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
           {% endif %} -->
